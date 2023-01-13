@@ -46,17 +46,19 @@ def wrangle_zillow():
         return df
 
         #function for doing train test split on any continuous variable
-def tts_con(df):
+def tts_con(df, stratify=None):
     '''
     removing your test data from the data
     '''
     train_validate, test=train_test_split(df, 
                                  train_size=.8, 
-                                 random_state=8675309)
+                                 random_state=8675309,
+                                 stratify=None)
     '''
     splitting the remaining data into the train and validate groups
     '''            
     train, validate =train_test_split(train_validate, 
                                       test_size=.3, 
-                                      random_state=8675309)
+                                      random_state=8675309,
+                                      stratify=None)
     return train, validate, test
