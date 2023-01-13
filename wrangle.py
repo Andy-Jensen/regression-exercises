@@ -4,6 +4,8 @@ import numpy as np
 import env
 import os
 from env import get_connection
+from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
 
 def wrangle_zillow():
     '''
@@ -42,3 +44,19 @@ def wrangle_zillow():
         '''
         df.to_csv('zillow.csv', index=False)
         return df
+
+        #function for doing train test split on any continuous variable
+def tts_con(df):
+    '''
+    removing your test data from the data
+    '''
+    train_validate, test=train_test_split(df, 
+                                 train_size=.8, 
+                                 random_state=8675309)
+    '''
+    splitting the remaining data into the train and validate groups
+    '''            
+    train, validate =train_test_split(train_validate, 
+                                      test_size=.3, 
+                                      random_state=8675309)
+    return train, validate, test
